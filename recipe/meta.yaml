@@ -1,4 +1,4 @@
-{% set version = "2.28.0" %}
+{% set version = "2.28.1" %}
 {% set gomodule = "github.com/errata-ai/vale" %}
 
 package:
@@ -8,7 +8,7 @@ package:
 source:
   folder: src/{{ gomodule }}
   url: https://{{ gomodule }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: cd69f33b0f030e098bd978f0a8a1becbaf432bd6326a12ee15dd3bf9ea051f67
+  sha256: db8ba14266e026dbbefcd6495e9095a41434e599c109310a6f493a6025a5a42f
 
 build:
   number: 0
