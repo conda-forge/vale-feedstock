@@ -11,7 +11,7 @@ export CGO_ENABLED=1
 export GO111MODULE=on
 
 pushd "src/${module}"
-    go get -u -v "./cmd/${PKG_NAME}"
+    go get -v "./cmd/${PKG_NAME}"
     go build \
         -buildmode=pie \
         -ldflags "-s -w -X main.version=${PKG_VERSION}" \
