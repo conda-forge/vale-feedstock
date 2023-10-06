@@ -10,8 +10,12 @@ export GO_EXTLINK_ENABLED=1
 export CGO_ENABLED=1
 export GO111MODULE=on
 
+which go
+env | grep GOROOT
+go version
+
 pushd "src/${module}"
-    go get -v "./cmd/${PKG_NAME}"
+    # go get -v "./cmd/${PKG_NAME}"
     go build \
         -buildmode=pie \
         -ldflags "-s -w -X main.version=${PKG_VERSION}" \

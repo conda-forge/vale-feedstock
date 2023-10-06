@@ -1,5 +1,6 @@
-{% set version = "2.29.1" %}
+{% set version = "2.29.2" %}
 {% set gomodule = "github.com/errata-ai/vale" %}
+{% set min_go = ">=1.20" %}
 
 package:
   name: vale
@@ -8,7 +9,7 @@ package:
 source:
   folder: src/{{ gomodule }}
   url: https://{{ gomodule }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 0d27ff83541d5a2cfabad46fcee95691c3691c79e6c595486ac48eb6ce9fbde4
+  sha256: a30634199d01f9fbdbada000029e444bd54b0e3c0af6a9619e0b17abf7a63e31
 
 build:
   number: 0
@@ -16,7 +17,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('go-cgo') }}
+    - {{ compiler('go-cgo') }}  # [not osx]
+    - go {{ min_go }}
     - posix  # [win]
     - go-licenses
   host: []
