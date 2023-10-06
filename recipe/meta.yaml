@@ -1,5 +1,6 @@
 {% set version = "2.29.2" %}
 {% set gomodule = "github.com/errata-ai/vale" %}
+{% set min_go = ">=1.20" %}
 
 package:
   name: vale
@@ -17,8 +18,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('go-cgo') }}  # [not osx]
-    - go >=1.20  # [osx]
-    - go-cgo >=1.20  # [osx]
+    - go {{ min_go }}
     - posix  # [win]
     - go-licenses
   host: []
