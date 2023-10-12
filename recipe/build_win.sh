@@ -34,6 +34,7 @@ pushd "src/${module}"
         --ignore=crypto/dsa \
         --ignore=crypto/ecdsa \
         --ignore=crypto/ed25519 \
+        --ignore=crypto/internal/nistec \
         --ignore=database/sql/driver \
         --ignore=embed \
         --ignore=encoding \
@@ -51,6 +52,7 @@ pushd "src/${module}"
         --ignore=internal/coverage/rtcov \
         --ignore=internal/cpu \
         --ignore=internal/fmtsort \
+        --ignore=internal/goarch \
         --ignore=internal/goarch \
         --ignore=internal/godebug \
         --ignore=internal/goexperiment \
