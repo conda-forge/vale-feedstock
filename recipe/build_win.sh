@@ -10,6 +10,10 @@ export GOARCH=amd64
 export CGO_ENABLED=1
 export GO111MODULE=on
 
+which go
+env | grep GOROOT
+go version
+
 pushd "src/${module}"
     go get -v "./cmd/${PKG_NAME}"
     go build \
@@ -47,6 +51,7 @@ pushd "src/${module}"
         --ignore=hash/crc64 \
         --ignore=html \
         --ignore=internal/abi \
+        --ignore=internal/bisect \
         --ignore=internal/bytealg \
         --ignore=internal/coverage/rtcov \
         --ignore=internal/cpu \
