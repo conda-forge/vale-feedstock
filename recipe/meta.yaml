@@ -9,9 +9,11 @@ source:
   folder: src/{{ gomodule }}
   url: https://{{ gomodule }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 64dce5b3c95e8390aa0b130a7da2637ab22a1b4afd16c411fba79969b1c9c968
+  patches:
+    - 0000-use-conda-prefix.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -30,6 +32,18 @@ test:
     - vale --help
     - vale --version | grep -iE "{{ version.replace(".", "\.") }}"
     - vale ls-dirs
+    # verify unix paths
+    - mkdir -p "${CONDA_PREFIX}/share/vale/styles"  # [unix]
+    - vale ls-dirs | grep "${CONDA_PREFIX}/share" # [unix]
+    - mkdir -p "${CONDA_PREFIX}/etc/vale"  # [unix]
+    - touch "${CONDA_PREFIX}/etc/vale/.vale.ini"  # [unix]
+    - vale ls-dirs | grep "${CONDA_PREFIX}/etc" # [unix]
+    # verify win paths
+    - md "%CONDA_PREFIX%\share\vale\styles"  # [win]
+    - vale ls-dirs | grep "%CONDA_PREFIX%\share" # [win]
+    - md "%CONDA_PREFIX%\etc\vale"  # [win]
+    - type "#" >> "%CONDA_PREFIX%\etc\vale\.vale.ini"  # [win]
+    - vale ls-dirs | grep "%CONDA_PREFIX%\etc" # [win]
 
 about:
   home: https://vale.sh
