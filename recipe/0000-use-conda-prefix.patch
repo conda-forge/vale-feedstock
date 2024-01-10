@@ -1,5 +1,5 @@
 diff --git a/internal/core/config.go b/internal/core/config.go
-index 74559649..22e83be1 100644
+index 74559649..94f3c6a8 100644
 --- a/internal/core/config.go
 +++ b/internal/core/config.go
 @@ -66,6 +66,17 @@ func IgnoreFiles(stylesPath string) ([]string, error) {
@@ -7,10 +7,10 @@ index 74559649..22e83be1 100644
  // project-specific configuration file, Vale raises an error.
  func DefaultConfig() (string, error) {
 +	// [vale-feedstock] use conda-managed config if it exists
-+	condaPrefix := os.GetEnv("CONDA_PREFIX")
++	condaPrefix := os.Getenv("CONDA_PREFIX")
 +
 +	if condaPrefix != "" {
-+		condaConfig := filepath.Join(prefix, "etc", "vale", ".vale.ini")
++		condaConfig := filepath.Join(condaPrefix, "etc", "vale", ".vale.ini")
 +		if _, err := os.Stat(condaConfig); err == nil {
 +			return condaConfig, nil
 +		}
@@ -25,7 +25,7 @@ index 74559649..22e83be1 100644
  // project-specific nor the global configuration file specify a `StylesPath`.
  func DefaultStylesPath() (string, error) {
 +	// [vale-feedstock] use conda-managed styles if any are installed
-+	condaPrefix := os.GetEnv("CONDA_PREFIX")
++	condaPrefix := os.Getenv("CONDA_PREFIX")
 +
 +	if condaPrefix != "" {
 +		condaStyles := filepath.Join(condaPrefix, "share", "vale", "styles")
