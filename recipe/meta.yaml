@@ -29,6 +29,7 @@ test:
     - vale --version
     - vale --help
     - vale --version | grep -iE "{{ version.replace(".", "\.") }}"
+    - vale ls-dirs
 
 about:
   home: https://vale.sh
