@@ -1,0 +1,40 @@
+diff --git a/internal/core/config.go b/internal/core/config.go
+index 74559649..94f3c6a8 100644
+--- a/internal/core/config.go
++++ b/internal/core/config.go
+@@ -66,6 +66,17 @@ func IgnoreFiles(stylesPath string) ([]string, error) {
+ // NOTE: if this file does not exist *and* the user has not specified a
+ // project-specific configuration file, Vale raises an error.
+ func DefaultConfig() (string, error) {
++	// [vale-feedstock] use conda-managed config if it exists
++	condaPrefix := os.Getenv("CONDA_PREFIX")
++
++	if condaPrefix != "" {
++		condaConfig := filepath.Join(condaPrefix, "etc", "vale", ".vale.ini")
++		if _, err := os.Stat(condaConfig); err == nil {
++			return condaConfig, nil
++		}
++	}
++	// [vale-feedstock]
++
+ 	root := xdg.ConfigHome
+ 	if root == "" {
+ 		return "", errors.New("unable to find XDG_CONFIG_HOME")
+@@ -78,6 +89,17 @@ func DefaultConfig() (string, error) {
+ // NOTE: the default styles directory is only used if neither the
+ // project-specific nor the global configuration file specify a `StylesPath`.
+ func DefaultStylesPath() (string, error) {
++	// [vale-feedstock] use conda-managed styles if any are installed
++	condaPrefix := os.Getenv("CONDA_PREFIX")
++
++	if condaPrefix != "" {
++		condaStyles := filepath.Join(condaPrefix, "share", "vale", "styles")
++		if _, err := os.Stat(condaStyles); err == nil {
++			return condaStyles, nil
++		}
++	}
++	// [vale-feedstock]
++
+ 	root := xdg.DataHome
+ 	if root == "" {
+ 		return "", errors.New("unable to find XDG_DATA_HOME")
