@@ -33,15 +33,15 @@ test:
     - vale --version | grep -iE "{{ version.replace(".", "\.") }}"
     - vale ls-dirs
     # verify unix paths
-    - mkdir -p "${CONDA_PREFIX}/share/vale/styles"     # [unix]
-    - vale ls-dirs | grep "${CONDA_PREFIX}/share"      # [unix]
-    - mkdir -p "${CONDA_PREFIX}/etc/vale"              # [unix]
-    - touch "${CONDA_PREFIX}/etc/vale/.vale.ini"       # [unix]
-    - vale ls-dirs | grep "${CONDA_PREFIX}/etc"        # [unix]
+    - mkdir -p "${CONDA_PREFIX}/share/vale/styles"        # [unix]
+    - vale ls-dirs | grep "${CONDA_PREFIX}/share"         # [unix]
+    - mkdir -p "${CONDA_PREFIX}/etc/vale"                 # [unix]
+    - touch "${CONDA_PREFIX}/etc/vale/.vale.ini"          # [unix]
+    - vale ls-dirs | grep "${CONDA_PREFIX}/etc"           # [unix]
     # verify win paths (sorta)
-    - md "%CONDA_PREFIX%\share\vale\styles"            # [win]
-    - md "%CONDA_PREFIX%\etc\vale"                     # [win]
-    - type "#" >> "%CONDA_PREFIX%\etc\vale\.vale.ini"  # [win]
+    - md "%CONDA_PREFIX%\share\vale\styles"               # [win]
+    - md "%CONDA_PREFIX%\etc\vale"                        # [win]
+    - echo "TODO" >> "%CONDA_PREFIX%\etc\vale\.vale.ini"  # [win]
     - vale ls-dirs
 
 about:
