@@ -95,6 +95,7 @@ pushd "src/${module}"
         --ignore=regexp \
         --ignore=runtime \
         --ignore=runtime/debug \
+        --ignore=slices \
         --ignore=sort \
         --ignore=strconv \
         --ignore=strings \
