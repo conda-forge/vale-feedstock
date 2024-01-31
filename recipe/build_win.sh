@@ -28,6 +28,7 @@ pushd "src/${module}"
         --ignore=archive/tar \
         --ignore=bufio \
         --ignore=bytes \
+        --ignore=cmp \
         --ignore=compress/flate \
         --ignore=compress/gzip \
         --ignore=container/list \
