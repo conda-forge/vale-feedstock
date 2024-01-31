@@ -28,6 +28,7 @@ pushd "src/${module}"
         --ignore=archive/tar \
         --ignore=bufio \
         --ignore=bytes \
+        --ignore=cmp \
         --ignore=compress/flate \
         --ignore=compress/gzip \
         --ignore=container/list \
@@ -95,6 +96,7 @@ pushd "src/${module}"
         --ignore=regexp \
         --ignore=runtime \
         --ignore=runtime/debug \
+        --ignore=slices \
         --ignore=sort \
         --ignore=strconv \
         --ignore=strings \
