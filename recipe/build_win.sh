@@ -24,7 +24,6 @@ pushd "src/${module}"
     # except the first, all --ignores are stdlib, found for some reason
     go-licenses save "./cmd/${PKG_NAME}" \
         --save_path "${SRC_DIR}/license-files" \
-        --ignore=github.com/xi2/xz \
         --ignore=archive/tar \
         --ignore=bufio \
         --ignore=bytes \
@@ -46,6 +45,7 @@ pushd "src/${module}"
         --ignore=errors \
         --ignore=flag \
         --ignore=fmt \
+        --ignore=github.com/xi2/xz \
         --ignore=hash \
         --ignore=hash/adler32 \
         --ignore=hash/crc32 \
@@ -54,6 +54,7 @@ pushd "src/${module}"
         --ignore=internal/abi \
         --ignore=internal/bisect \
         --ignore=internal/bytealg \
+        --ignore=internal/chacha8rand \
         --ignore=internal/coverage/rtcov \
         --ignore=internal/cpu \
         --ignore=internal/fmtsort \
