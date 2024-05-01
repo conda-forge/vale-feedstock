@@ -18,10 +18,11 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('go-cgo') }}
     - {{ stdlib("c") }}
-    - {{ compiler('go-cgo') }}  # [not osx]
-    - posix  # [win]
+    - go >=1.21
     - go-licenses
+    - posix  # [win]
   host: []
   run: []
 
