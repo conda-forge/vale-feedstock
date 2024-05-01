@@ -20,7 +20,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('go-cgo') }}
     - {{ stdlib("c") }}
-    - go >=1.21
+    - go-cgo >=1.21
     - go-licenses
     - posix  # [win]
   host: []
