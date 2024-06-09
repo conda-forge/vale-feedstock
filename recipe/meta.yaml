@@ -20,10 +20,11 @@ requirements:
   build:
     - {{ compiler("c") }}          # [unix]
     - {{ compiler("cxx") }}        # [unix]
+    - {{ stdlib("c") }}            # [unix]
     - {{ compiler("m2w64_c") }}    # [win]
     - {{ compiler("m2w64_cxx") }}  # [win]
+    - {{ stdlib("m2w64_c") }}      # [win]
     - {{ compiler("go-cgo") }}
-    - {{ stdlib("c") }}
     - go-cgo >=1.21
     - go-licenses
     - posix  # [win]
