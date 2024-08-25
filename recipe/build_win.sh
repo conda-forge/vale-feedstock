@@ -45,6 +45,7 @@ pushd "src/${module}"
         --ignore=errors \
         --ignore=flag \
         --ignore=fmt \
+        --ignore=github.com/jdkato/go-tree-sitter-julia/julia \
         --ignore=github.com/xi2/xz \
         --ignore=hash \
         --ignore=hash/adler32 \
