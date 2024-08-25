@@ -24,6 +24,7 @@ pushd "src/${module}"
         || exit 1
     go-licenses save "./cmd/${PKG_NAME}" \
         --save_path "${SRC_DIR}/license-files" \
+        --ignore=github.com/jdkato/go-tree-sitter-julia/julia \
         --ignore=github.com/xi2/xz \
         || exit 1
 popd
