@@ -14,7 +14,7 @@ source:
     - 0000-use-conda-prefix.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -27,7 +27,7 @@ requirements:
     - {{ compiler("go-cgo") }}
     - go-cgo >=1.21
     - go-licenses
-    - posix  # [win]
+    - m2-base  # [win]
   host: []
   run: []
 
