@@ -1,4 +1,4 @@
-{% set version = "3.9.0" %}
+{% set version = "3.9.1" %}
 {% set gomodule = "github.com/errata-ai/vale" %}
 
 
@@ -9,7 +9,7 @@ package:
 source:
   folder: src/{{ gomodule }}
   url: https://{{ gomodule }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 393ddfef73206cab948709898fe6891b347568f7121d2ff517280128952a1f49
+  sha256: 77cc65eab69827f3a3b372b4edd1e1d11079e087768038441cc26976ebe9b48d
   patches:
     - 0000-use-conda-prefix.patch
 
