@@ -3,7 +3,7 @@ About vale-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/vale-feedstock/blob/main/LICENSE.txt)
 
-Home: https://vale.sh
+Home: https://vale.sh/
 
 Package license: MIT
 
@@ -188,5 +188,4 @@ Feedstock Maintainers
 =====================
 
 * [@bollwyvl](https://github.com/bollwyvl/)
-
 
