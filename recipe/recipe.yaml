@@ -44,7 +44,7 @@ tests:
     script:
       - vale --version
       - vale --help
-      - vale --version | grep -iE "{{ version | replace(".", "\\.") }}"
+      - vale --version | grep -iE "${{ version | replace(".", "\\.") }}"
       - vale ls-dirs
       - if: unix
         then:
