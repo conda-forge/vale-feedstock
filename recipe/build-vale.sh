@@ -4,13 +4,14 @@ set -eux -o pipefail
 
 module="github.com/errata-ai/vale"
 
-export GOPATH="$( pwd )"
+GOPATH="$( pwd )"
+export GOPATH
 export GOROOT="${BUILD_PREFIX}/go"
 export GO_EXTLINK_ENABLED=1
 export CGO_ENABLED=1
 export GO111MODULE=on
 
-which go
+command -v go
 env | grep GOROOT
 go version
 
@@ -30,4 +31,6 @@ pushd "src/${module}"
 popd
 
 # Make GOPATH directories writeable so conda-build can clean everything up.
-find "$( go env GOPATH )" -type d -exec chmod +w {} \;
+CLEAN_GO_PATH=$( go env GOPATH )
+export CLEAN_GO_PATH
+find "${CLEAN_GO_PATH}" -type d -exec chmod +w {} \;
