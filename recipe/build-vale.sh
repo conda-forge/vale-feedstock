@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eux
+set -eux -o pipefail
 
 module="github.com/errata-ai/vale"
 

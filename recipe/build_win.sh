@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eux
+set -eux -o pipefail
 
 module="github.com/errata-ai/vale"
 
@@ -25,6 +25,7 @@ pushd "src/${module}"
     go-licenses save "./cmd/${PKG_NAME}" \
         --save_path "${SRC_DIR}/license-files" \
         --ignore=archive/tar \
+        --ignore=archive/zip \
         --ignore=bufio \
         --ignore=bytes \
         --ignore=cmp \
