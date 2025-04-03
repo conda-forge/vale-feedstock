@@ -80,10 +80,14 @@ pushd "src/${module}"
         --ignore=internal/reflectlite \
         --ignore=internal/runtime/atomic \
         --ignore=internal/runtime/exithook \
+        --ignore=internal/runtime/maps \
+        --ignore=internal/runtime/math \
+        --ignore=internal/runtime/sys \
         --ignore=internal/safefilepath \
         --ignore=internal/saferio \
         --ignore=internal/singleflight \
         --ignore=internal/stringslite \
+        --ignore=internal/sync \
         --ignore=internal/syscall/execenv \
         --ignore=internal/syscall/windows \
         --ignore=internal/syscall/windows/registry \
@@ -145,6 +149,7 @@ pushd "src/${module}"
         --ignore=vendor/golang.org/x/text/transform \
         --ignore=vendor/golang.org/x/text/unicode/bidi \
         --ignore=vendor/golang.org/x/text/unicode/norm \
+        --ignore=weak \
         || exit 1
 popd
 
