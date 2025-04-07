@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "3.11.1"
+  version: "3.11.2"
 
 package:
   name: vale
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/errata-ai/vale/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: ae0cc34c9ec01f9f6b1f1fcbae71727229d4e3df013a9a6df124b7a9049206e5
+  sha256: 12795c72a5628ebc22d46a33b878519c5ba18e6d665271893bfa24cb1f864f73
   target_directory: src/github.com/errata-ai/vale
   patches:
     - 0000-use-conda-prefix.patch
