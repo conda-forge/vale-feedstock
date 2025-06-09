@@ -10,6 +10,7 @@ export GOOS=windows
 export GOARCH=amd64
 export CGO_ENABLED=1
 export GO111MODULE=on
+export CC="${BUILD_PREFIX}/Library/bin/x86_64-w64-mingw32-gcc.exe"
 
 command -v go
 env | grep GOROOT
