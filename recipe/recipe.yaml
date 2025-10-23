@@ -4,7 +4,6 @@ schema_version: 1
 context:
   version: "3.13.0"
   go_min: "1.25.3"
-  compiler_stack: ${{ "" if unix else "m2w64_" }}
 
 package:
   name: vale
@@ -25,12 +24,17 @@ build:
 requirements:
   build:
     - ${{ compiler("go-cgo") }}
-    - ${{ compiler(compiler_stack ~ "c") }}
-    - ${{ compiler(compiler_stack ~ "cxx") }}
-    - ${{ stdlib(compiler_stack ~ "c") }}
-    - go >=${{ go_min }}
     - go-licenses
-
+    - go >=${{ go_min }}
+    - if: unix
+      then:
+        - ${{ compiler("c") }}
+        - ${{ compiler("cxx") }}
+        - ${{ stdlib("c") }}
+      else:
+        - ${{ compiler("m2w64_c") }}
+        - ${{ compiler("m2w64_cxx") }}
+        - ${{ stdlib("m2w64_c") }}
 tests:
   - script:
       - vale --version
