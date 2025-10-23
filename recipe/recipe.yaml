@@ -3,6 +3,7 @@ schema_version: 1
 
 context:
   version: "3.13.0"
+  go_min: "1.25.3"
 
 package:
   name: vale
@@ -27,6 +28,7 @@ requirements:
     - ${{ compiler("go-cgo") }}
     - ${{ stdlib("c") }}
     - go-licenses
+    - go >=${{ go_min }}
 
 tests:
   - script:
