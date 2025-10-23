@@ -24,10 +24,10 @@ build:
 
 requirements:
   build:
-    - ${{ compiler("${{ compiler_stack }}c") }}
-    - ${{ compiler("${{ compiler_stack }}cxx") }}
     - ${{ compiler("go-cgo") }}
-    - ${{ stdlib("${{ compiler_stack }}c") }}
+    - ${{ compiler(compiler_stack ~ "c") }}
+    - ${{ compiler(compiler_stack ~ "cxx") }}
+    - ${{ stdlib(compiler_stack ~ "c") }}
     - go >=${{ go_min }}
     - go-licenses
 
