@@ -37,8 +37,7 @@ outputs:
         env:
           GOPATH: ${{ var_src_dir }}
         content:
-          - export
-          - cd src/${{ go_mod }}
+          - cd "src/${{ go_mod }}"
           - ${{ go_build }} -o "${{ go_bin }}" ./cmd/vale
           - |-
             go-licenses save ./cmd/vale --save_path "${{ var_src_dir }}/license-files"
