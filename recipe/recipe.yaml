@@ -4,22 +4,39 @@ schema_version: 1
 context:
   version: "3.14.0"
   go_min: "1.25.3"
+  go_mod: github.com/errata-ai/vale
+  go_build: go build -v --buildmode=pie -trimpath -modcacherw -ldflags "-s -w -X main.version=${{ version }}"
+  go_bin: |-
+    {% if unix %}/bin/vale{% else %}\bin\vale.exe{% endif %}
+  go_mod_xz: github.com/xi2/xz
+  go_mod_ts_julia: github.com/jdkato/go-tree-sitter-julia/julia
+  license_ignore: ${{ go_mod_xz }} ${{ go_mod_ts_julia }} ${{ go_mod }}
 
 package:
   name: vale
   version: ${{ version }}
 
 source:
-  url: https://github.com/errata-ai/vale/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: fcc7177d2715283eede6482c80cdba1aa385cf8ea6046de2efabb6a068a6929e
-  target_directory: src/github.com/errata-ai/vale
-  patches:
-    - 0000-use-conda-prefix.patch
+  - url: https://${{ go_mod }}/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: fcc7177d2715283eede6482c80cdba1aa385cf8ea6046de2efabb6a068a6929e
+    target_directory: src/${{ go_mod }}
+    patches:
+      - 0000-use-conda-prefix.patch
+  - url: https://raw.githubusercontent.com/xi2/xz/refs/heads/master/LICENSE
+    sha256: 5c640056d513f276d56635af7a0bed81cb7eac02a31b6e56d40c416557a8d8ce
+    target_directory: license-files-manual/${{ go_mod_xz }}
 
 build:
   number: 0
   script:
-    file: build-vale
+    env:
+      GOPATH: ${{ SRC_DIR }}
+    content:
+    - cd src/${{ go_mod }}
+    - ${{ go_build }} -o "${{ PREFIX }}${{ go_bin }}" ./cmd/vale
+    - |-
+      go-licenses save ./cmd/vale --save_path "${{ SRC_DIR }}/license-files"
+        {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
 
 requirements:
   build:
@@ -39,9 +56,7 @@ tests:
   - script:
       - vale --version
       - vale --help
-      - if: win
-        then: vale --version | findstr "${{ version | replace(".", "\\.") }}"
-        else: vale --version | grep -iE "${{ version | replace(".", "\\.") }}"
+      - vale --version | ${{ "grep -iE" if unix else "findstr" }} "${{ version | replace(".", "\\.") }}"
       - vale ls-dirs
       - if: unix
         then:
@@ -59,11 +74,12 @@ tests:
 about:
   license: MIT
   license_file:
-    - src/github.com/errata-ai/vale/LICENSE
+    - src/${{ go_mod }}/LICENSE
     - license-files/
+    - license-files-manual/
   summary: A syntax-aware linter for prose built with speed and extensibility in mind.
   homepage: https://vale.sh
-  repository: https://github.com/errata-ai/vale
+  repository: https://${{ go_mod }}
   documentation: https://vale.sh/docs
 
 extra:
