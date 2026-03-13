@@ -10,7 +10,7 @@ context:
   go_mod_xz: github.com/xi2/xz
   go_mod_ts_julia: github.com/jdkato/go-tree-sitter-julia/julia
   license_ignore: ${{ go_mod_xz }} ${{ go_mod_ts_julia }} ${{ go_mod }}
-  var_src_dir: ${{ "$SRC_DIR" if unix else "%PREFIX%" }}
+  var_src_dir: ${{ "$SRC_DIR" if unix else "%SRC_DIR%" }}
   var_conda_prefix: ${{ "$CONDA_PREFIX" if unix else "%CONDA_PREFIX%" }}
   mkdir: ${{ "mkdir -p" if unix else "md" }}
   grep: ${{ "grep -iE" if unix else "findstr /c" }}
