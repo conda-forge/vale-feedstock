@@ -6,15 +6,13 @@ context:
   go_min: "1.25.3"
   go_mod: github.com/errata-ai/vale
   go_build: go build -v --buildmode=pie -trimpath -modcacherw -ldflags "-s -w -X main.version=${{ version }}"
-  go_bin: |-
-    {% if unix %}/bin/vale{% else %}\bin\vale.exe{% endif %}
+  go_bin: ${{ "$PREFIX/bin/$PKG_NAME" if unix else "%PREFIX%\bin\\%PKG_NAME%.exe" }}
   go_mod_xz: github.com/xi2/xz
   go_mod_ts_julia: github.com/jdkato/go-tree-sitter-julia/julia
   license_ignore: ${{ go_mod_xz }} ${{ go_mod_ts_julia }} ${{ go_mod }}
   env_src_dir:  ${{ "$SRC_DIR" if unix else "%SRC_DIR%" }}
-  env_prefix:  ${{ "$PREFIX" if unix else "%PREFIX%" }}
 
-package:
+recipe:
   name: vale
   version: ${{ version }}
 
@@ -30,48 +28,53 @@ source:
 
 build:
   number: 0
-  script:
-    env:
-      GOPATH: ${{ env_src_dir }}
-    content:
-      - cd src/${{ go_mod }}
-      - ${{ go_build }} -o "${{ env_prefix }}${{ go_bin }}" ./cmd/vale
-      - |-
-        go-licenses save ./cmd/vale --save_path "${{ env_src_dir }}/license-files"
-          {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
 
-requirements:
-  build:
-    - ${{ compiler("go-cgo") }}
-    - go-licenses
-    - go >=${{ go_min }}
-    - if: unix
-      then:
-        - ${{ compiler("c") }}
-        - ${{ compiler("cxx") }}
-        - ${{ stdlib("c") }}
-      else:
-        - ${{ compiler("m2w64_c") }}
-        - ${{ compiler("m2w64_cxx") }}
-        - ${{ stdlib("m2w64_c") }}
-tests:
-  - script:
-      - vale --version
-      - vale --help
-      - vale --version | ${{ "grep -iE" if unix else "findstr" }} "${{ version | replace(".", "\\.") }}"
-      - vale ls-dirs
-      - if: unix
-        then:
-          - mkdir -p "${CONDA_PREFIX}/share/vale/styles"
-          - vale ls-dirs | grep "${CONDA_PREFIX}/share"
-          - mkdir -p "${CONDA_PREFIX}/etc/vale"
-          - touch "${CONDA_PREFIX}/etc/vale/.vale.ini"
-          - vale ls-dirs | grep "${CONDA_PREFIX}/etc"
-        else:
-          - md "%CONDA_PREFIX%\share\vale\styles"
-          - md "%CONDA_PREFIX%\etc\vale"
-          - echo "TODO" >> "%CONDA_PREFIX%\etc\vale\.vale.ini"
-      - vale ls-dirs
+outputs:
+  - package:
+      name: vale
+    build:
+      script:
+        env:
+          GOPATH: ${{ env_src_dir }}
+        content:
+          - cd src/${{ go_mod }}
+          - ${{ go_build }} -o "${{ go_bin }}" ./cmd/vale
+          - |-
+            go-licenses save ./cmd/vale --save_path "${{ env_src_dir }}/license-files"
+              {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
+
+    requirements:
+      build:
+        - ${{ compiler("go-cgo") }}
+        - go-licenses
+        - go >=${{ go_min }}
+        - if: unix
+          then:
+            - ${{ compiler("c") }}
+            - ${{ compiler("cxx") }}
+            - ${{ stdlib("c") }}
+          else:
+            - ${{ compiler("m2w64_c") }}
+            - ${{ compiler("m2w64_cxx") }}
+            - ${{ stdlib("m2w64_c") }}
+    tests:
+      - script:
+          - vale --version
+          - vale --help
+          - vale --version | ${{ "grep -iE" if unix else "findstr" }} "${{ version | replace(".", "\\.") }}"
+          - vale ls-dirs
+          - if: unix
+            then:
+              - mkdir -p "${CONDA_PREFIX}/share/vale/styles"
+              - vale ls-dirs | grep "${CONDA_PREFIX}/share"
+              - mkdir -p "${CONDA_PREFIX}/etc/vale"
+              - touch "${CONDA_PREFIX}/etc/vale/.vale.ini"
+              - vale ls-dirs | grep "${CONDA_PREFIX}/etc"
+            else:
+              - md "%CONDA_PREFIX%\share\vale\styles"
+              - md "%CONDA_PREFIX%\etc\vale"
+              - echo "TODO" >> "%CONDA_PREFIX%\etc\vale\.vale.ini"
+          - vale ls-dirs
 
 about:
   license: MIT
@@ -85,5 +88,6 @@ about:
   documentation: https://vale.sh/docs
 
 extra:
+  feedstock-name: vale
   recipe-maintainers:
     - bollwyvl
