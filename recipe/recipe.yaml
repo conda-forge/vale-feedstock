@@ -11,6 +11,8 @@ context:
   go_mod_xz: github.com/xi2/xz
   go_mod_ts_julia: github.com/jdkato/go-tree-sitter-julia/julia
   license_ignore: ${{ go_mod_xz }} ${{ go_mod_ts_julia }} ${{ go_mod }}
+  env_src_dir:  ${{ "$SRC_DIR" if unix else "%SRC_DIR%" }}
+  env_prefix:  ${{ "$PREFIX" if unix else "%PREFIX%" }}
 
 package:
   name: vale
@@ -30,13 +32,13 @@ build:
   number: 0
   script:
     env:
-      GOPATH: ${{ SRC_DIR }}
+      GOPATH: ${{ env_src_dir }}
     content:
-    - cd src/${{ go_mod }}
-    - ${{ go_build }} -o "${{ PREFIX }}${{ go_bin }}" ./cmd/vale
-    - |-
-      go-licenses save ./cmd/vale --save_path "${{ SRC_DIR }}/license-files"
-        {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
+      - cd src/${{ go_mod }}
+      - ${{ go_build }} -o "${{ env_prefix }}${{ go_bin }}" ./cmd/vale
+      - |-
+        go-licenses save ./cmd/vale --save_path "${{ env_src_dir }}/license-files"
+          {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
 
 requirements:
   build:
