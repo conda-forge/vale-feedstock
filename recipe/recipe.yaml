@@ -47,6 +47,7 @@ outputs:
           - |-
             go-licenses save ./cmd/vale --save_path "${{ var_src_dir }}/license-files"
               {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
+          - ${{ ls }} "${{ var_src_dir }}/license-files"
 
     requirements:
       build:
