@@ -15,6 +15,7 @@ context:
   mkdir: ${{ "mkdir -p" if unix else "md" }}
   grep: ${{ "grep -iE" if unix else "findstr /c" }}
   ls: ${{ "ls -lathr" if unix else "dir" }}
+  toolchain: ${{ "" if unix else "m2w64_" }}
 
 recipe:
   name: vale
@@ -50,10 +51,10 @@ outputs:
 
     requirements:
       build:
-        - ${{ compiler("c") }}
-        - ${{ compiler("cxx") }}
-        - ${{ compiler("go-cgo") }}
-        - ${{ stdlib("c") }}
+        - ${{ compiler(toolchain ~ "c") }}
+        - ${{ compiler(toolchain ~ "cxx") }}
+        - ${{ compiler(toolchain ~ "go-cgo") }}
+        - ${{ stdlib(toolchain ~ "c") }}
         - go-licenses
         - go >=${{ go_min }}
     tests:
