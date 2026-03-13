@@ -6,11 +6,10 @@ context:
   go_min: "1.25.3"
   go_mod: github.com/errata-ai/vale
   go_build: go build -v --buildmode=pie -trimpath -modcacherw -ldflags "-s -w -X main.version=${{ version }}"
-  go_bin: ${{ "$PREFIX/bin/$PKG_NAME" if unix else "%PREFIX%\bin\\%PKG_NAME%.exe" }}
+  go_bin: ${{ "$PREFIX/bin/$PKG_NAME" if unix else "%PREFIX%\\bin\\%PKG_NAME%.exe" }}
   go_mod_xz: github.com/xi2/xz
   go_mod_ts_julia: github.com/jdkato/go-tree-sitter-julia/julia
   license_ignore: ${{ go_mod_xz }} ${{ go_mod_ts_julia }} ${{ go_mod }}
-  env_src_dir:  ${{ "$SRC_DIR" if unix else "%SRC_DIR%" }}
 
 recipe:
   name: vale
@@ -35,12 +34,12 @@ outputs:
     build:
       script:
         env:
-          GOPATH: ${{ env_src_dir }}
+          GOPATH: ${{ SRC_DIR }}
         content:
           - cd src/${{ go_mod }}
           - ${{ go_build }} -o "${{ go_bin }}" ./cmd/vale
           - |-
-            go-licenses save ./cmd/vale --save_path "${{ env_src_dir }}/license-files"
+            go-licenses save ./cmd/vale --save_path "${{ SRC_DIR }}/license-files"
               {%- for i in license_ignore | split %} --ignore=${{ i }}{% endfor %}
 
     requirements:
