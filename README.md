@@ -9,7 +9,7 @@ Package license: MIT
 
 Summary: A syntax-aware linter for prose built with speed and extensibility in mind.
 
-Development: https://github.com/errata-ai/vale
+Development: https://github.com/vale-cli/vale
 
 Documentation: https://vale.sh/docs
 
@@ -35,6 +35,20 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=19600&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/vale-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=19600&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/vale-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=19600&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/vale-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
