@@ -32,7 +32,7 @@ source:
     target_directory: license-files-manual/${{ go_mod_xz }}
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
