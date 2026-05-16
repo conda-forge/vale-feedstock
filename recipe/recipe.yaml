@@ -22,7 +22,7 @@ recipe:
   version: ${{ version }}
 
 source:
-  - url: https://${{ go_mod }}/archive/refs/tags/v${{ version }}.tar.gz
+  - url: https://github.com/vale-cli/vale/archive/refs/tags/v${{ version }}.tar.gz
     sha256: 7141b3602568cc000b191661a7866bdbd0192123df79e6f0faaab21eebe98071
     target_directory: src/${{ go_mod }}
     patches:
@@ -87,7 +87,7 @@ about:
     - license-files-manual/
   summary: A syntax-aware linter for prose built with speed and extensibility in mind.
   homepage: https://vale.sh
-  repository: https://${{ go_mod }}
+  repository: https://github.com/vale-cli/vale
   documentation: https://vale.sh/docs
 
 extra:
