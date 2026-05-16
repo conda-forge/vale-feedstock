@@ -9,7 +9,7 @@ Package license: MIT
 
 Summary: A syntax-aware linter for prose built with speed and extensibility in mind.
 
-Development: https://github.com/errata-ai/vale
+Development: https://github.com/vale-cli/vale
 
 Documentation: https://vale.sh/docs
 
