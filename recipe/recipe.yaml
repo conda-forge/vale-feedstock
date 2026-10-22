@@ -67,6 +67,10 @@ outputs:
             - ${{ stdlib("m2w64_c") }}
 
     tests:
+      - package_contents:
+          strict: true
+          bin:
+            - vale
       - script:
           - vale --version
           - vale --help
